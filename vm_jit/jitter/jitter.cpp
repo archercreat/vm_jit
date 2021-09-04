@@ -63,6 +63,7 @@ namespace jitter
             vm::opcodes::Nand,
             [](const vm::instruction_t& instr, jitter& jit)
             {
+                asmjit::DebugUtils::unused(instr);
                 auto temp_r1 = jit.virtual_pop();
                 auto temp_r2 = jit.virtual_pop();
                 jit.cc->and_(temp_r1, temp_r2);
@@ -196,12 +197,12 @@ namespace jitter
         virtual_push(asmjit::x86::r15);
     }
 
-    asmjit::Label jitter::get_label(uint64_t vip)
+    asmjit::Label jitter::get_label(vm::vip_t vip)
     {
         return labels.at(vip);
     }
 
-    asmjit::Label jitter::create_label(uint64_t vip)
+    asmjit::Label jitter::create_label(vm::vip_t vip)
     {
         // Make sure label is free
         //
@@ -213,7 +214,7 @@ namespace jitter
 
     asmjit::x86::Gp jitter::create_vreg(uint64_t idx)
     {
-        auto reg = cc->newGpq();
+        auto reg = cc->newGpq("VREG_%d", idx);
         vregs.insert({ idx, reg });
         return reg;
     }

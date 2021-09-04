@@ -4,5 +4,5 @@
 
 namespace vm
 {
-	instruction_t match(state& state, const x86::routine_t& routine, uint64_t operand);
+    instruction_t match(state& state, const x86::routine_t& routine, uint64_t operand);
 }

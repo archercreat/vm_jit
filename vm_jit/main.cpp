@@ -38,7 +38,7 @@ int main(int argc, const char** argv)
         return 0;
     }
 
-    auto module = LoadLibraryExA(argv[1], NULL, DONT_RESOLVE_DLL_REFERENCES);
+    LoadLibraryExA(argv[1], NULL, DONT_RESOLVE_DLL_REFERENCES);
     auto jitter = jitter::jitter();
     auto state = vm::state(vip, rkey);
 

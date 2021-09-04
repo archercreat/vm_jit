@@ -8,6 +8,7 @@
 
 namespace jitter
 {
+
     struct jitter
     {
         std::unordered_map<uint64_t, asmjit::Label> labels;
@@ -24,8 +25,8 @@ namespace jitter
 
         explicit jitter();
 
-        asmjit::Label get_label(uint64_t vip);
-        asmjit::Label create_label(uint64_t vip);
+        asmjit::Label get_label(vm::vip_t vip);
+        asmjit::Label create_label(vm::vip_t vip);
 
         asmjit::x86::Gp create_vreg(uint64_t idx);
         asmjit::x86::Gp get_vreg(uint64_t idx);
