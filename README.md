@@ -3,11 +3,16 @@
 PoC vm devirtualization based on `AsmJit`. The binary was taken from `YauzaCTF 2021` competition.
 You are welcome to try to solve it yourself, the binary is in `challenge bin` folder.
 
+### Update 09/07/21
+I made llvm lifter, you can see it in vm_jit/lifter.
+Also I've attached devirtualized binaries, you can find them in `devirt` folder.
+
 ## Dependencies
 
-This project relies on two libraries `zydis` and `asmjit`. Install them via vcpkg:
+This project relies on two libraries `zydis`, `llvm 12` and `asmjit`. Install them via vcpkg:
 ```
 vcpkg.exe install zydis
+vcpkg.exe install llvm
 vcpkg.exe install asmjit
 ```
 
@@ -15,6 +20,8 @@ vcpkg.exe install asmjit
 
 ![](https://i.imgur.com/RNKUkui.png)
 
-## After
+## Asmjit version
 ![](https://i.imgur.com/Rm2eLDn.png)
 
+## LLVM version
+![](https://i.imgur.com/o26e052.png)

@@ -12,7 +12,7 @@ namespace jitter
     struct jitter
     {
         std::unordered_map<uint64_t, asmjit::Label> labels;
-        std::unordered_map<uint64_t, asmjit::x86::Gp> vregs;
+        std::unordered_map<uint64_t, asmjit::x86::Gp> reg_map;
 
         asmjit::JitRuntime rt;
         asmjit::CodeHolder code;

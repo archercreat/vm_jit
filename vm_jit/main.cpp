@@ -1,6 +1,7 @@
 #include "vm.h"
 #include "matcher.h"
 #include "jitter/jitter.h"
+#include "lifter/lifter.h"
 #include <fstream>
 
 #define WIN32_LEAN_AND_MEAN
@@ -32,14 +33,23 @@ void print_instruction(vm::instruction_t& instr)
 
 int main(int argc, const char** argv)
 {
-    if (argc != 4 || std::strcmp(argv[2], "-o"))
+    if (argc != 3)
     {
-        std::printf("Usage: %s vm.exe -o output.exe\n", argv[0]);
+        std::printf("Usage: %s vm.exe -llvm or -asmjit\n", argv[0]);
         return 0;
     }
 
+    bool is_llvm = !std::strcmp(argv[2], "-llvm");
+    bool is_jit = !std::strcmp(argv[2], "-asmjit");
+
     LoadLibraryExA(argv[1], NULL, DONT_RESOLVE_DLL_REFERENCES);
+
+    llvm::LLVMContext ctx;
+    llvm::Module program("Module", ctx);
+    auto lifter = lifter::lifter(program);
+
     auto jitter = jitter::jitter();
+
     auto state = vm::state(vip, rkey);
 
     // Initial ror key
@@ -72,7 +82,8 @@ int main(int argc, const char** argv)
 
         // Jit instruction
         //
-        jitter.add_instruction(instr);
+        if (is_llvm) lifter.add_instruction(instr);
+        if (is_jit) jitter.add_instruction(instr);
 
         // Process control flow
         //
@@ -97,15 +108,19 @@ int main(int argc, const char** argv)
         }
     }
 
-    auto& f = jitter.compile();
-
-    // Copy and patch file
-    //
-    std::ifstream is(argv[1], std::ios::in | std::ifstream::binary);
-    std::ofstream of(argv[3], std::ios::out | std::ios::binary);
-    of << is.rdbuf();
-    of.seekp(vm_entry_offset);
-    of.write((const char*)f.data(), f.size());
-    of.close();
-    is.close();
+    if (is_llvm) lifter.compile();
+    
+    if (is_jit)
+    {
+        auto& f = jitter.compile();
+        // Copy and patch file
+        //
+        std::ifstream is(argv[1], std::ios::in | std::ifstream::binary);
+        std::ofstream of("output.exe", std::ios::out | std::ios::binary);
+        of << is.rdbuf();
+        of.seekp(vm_entry_offset);
+        of.write((const char*)f.data(), f.size());
+        of.close();
+        is.close();
+    }
 }

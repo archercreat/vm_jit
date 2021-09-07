@@ -30,6 +30,9 @@
     <ClCompile Include="jitter\jitter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lifter\lifter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="disasm.h">
@@ -42,6 +45,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="jitter\jitter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lifter\lifter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lifter\utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

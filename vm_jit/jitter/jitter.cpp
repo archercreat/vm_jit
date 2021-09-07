@@ -215,7 +215,7 @@ namespace jitter
     asmjit::x86::Gp jitter::create_vreg(uint64_t idx)
     {
         auto reg = cc->newGpq("VREG_%d", idx);
-        vregs.insert({ idx, reg });
+        reg_map.insert({ idx, reg });
         return reg;
     }
 
@@ -224,7 +224,7 @@ namespace jitter
         // Make sure the register is present
         //
         assert(reg_map.count(idx));
-        return vregs.at(idx);
+        return reg_map.at(idx);
     }
 
     asmjit::x86::Gp jitter::virtual_pop()
