@@ -4,8 +4,8 @@ PoC vm devirtualization based on `AsmJit`. The binary was taken from `YauzaCTF 2
 You are welcome to try to solve it yourself, the binary is in `challenge bin` folder.
 
 ### Update 09/07/21
-I made llvm lifter, you can see it in vm_jit/lifter.
-Also I've attached devirtualized binaries, you can find them in `devirt` folder.
+I've made llvm lifter, you can find it in `vm_jit/lifter` folder.
+I've also attached devirtualized binaries, you can find them in `devirt` folder.
 
 ## Dependencies
 
