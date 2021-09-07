@@ -9,7 +9,7 @@ I've also attached devirtualized binaries, you can find them in `devirt` folder.
 
 ## Dependencies
 
-This project relies on two libraries `zydis`, `llvm 12` and `asmjit`. Install them via vcpkg:
+This project relies on three libraries `zydis`, `llvm 12` and `asmjit`. Install them via vcpkg:
 ```
 vcpkg.exe install zydis
 vcpkg.exe install llvm
